@@ -7,18 +7,18 @@ RUN apt-get update && apt-get install -y \
 	curl apt-transport-https debconf-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# adding custom MS repository
+RUN apt install -y curl python3.7 git python3-pip openjdk-8-jdk unixodbc-dev
+
+# Add SQL Server ODBC Driver 17 for Ubuntu 18.04
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-
-# install SQL Server drivers and tools
-RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql mssql-tools
+RUN apt-get update
+RUN ACCEPT_EULA=Y apt-get install -y --allow-unauthenticated msodbcsql17
+RUN ACCEPT_EULA=Y apt-get install -y --allow-unauthenticated mssql-tools
+RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
-RUN /bin/bash -c "source ~/.bashrc"
 
-
-RUN apt-get -y install locales
-RUN locale-gen en_US.UTF-8
-RUN update-locale LANG=en_US.UTF-8
-
+COPY startup.sh /
+RUN chmod +x /startup.sh
+ENTRYPOINT ["sh","/startup.sh"]
 CMD /bin/bash 
