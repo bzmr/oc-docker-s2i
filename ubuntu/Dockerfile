@@ -25,4 +25,4 @@ RUN ACCEPT_EULA=Y apt-get install msodbcsql17 --assume-yes
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile 
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
 
-CMD /bin/bash
+CMD ["python", "app.py", "8080"]
