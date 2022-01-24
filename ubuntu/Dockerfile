@@ -11,6 +11,8 @@ ADD odbcinst.ini /etc/odbcinst.ini
 
 # UPGRADE pip3
 RUN pip3 install --upgrade pip
+ADD requirements.txt /etc/requirements.txt
+Run pip install --upgrade -r /etc/requirements.txt
 
 # DEPENDECES FOR DOWNLOAD ODBC DRIVER
 RUN apt-get install apt-transport-https 
