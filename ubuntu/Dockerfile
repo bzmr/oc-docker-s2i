@@ -24,3 +24,5 @@ RUN ACCEPT_EULA=Y apt-get install msodbcsql17 --assume-yes
 # CONFIGURE ENV FOR /bin/bash TO USE MSODBCSQL17
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile 
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
+
+CMD /bin/bash
