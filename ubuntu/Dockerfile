@@ -10,7 +10,7 @@ RUN apt install unixodbc-bin -y
 RUN apt-get clean -y
 ADD odbcinst.ini /etc/odbcinst.ini
 
-# UPGRADE pip3
+# UPGRADE pip3 and install requirements list
 RUN pip3 install --upgrade pip
 RUN pip install --upgrade -r /app/requirements.txt
 
