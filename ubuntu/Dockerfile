@@ -3,6 +3,8 @@ FROM python:3.8.3-buster
 COPY * /app/
 RUN ls -la /app/
 
+# UPDATE APT-GET
+RUN apt-get update
 
 # PYODBC DEPENDENCES
 RUN apt-get install -y tdsodbc unixodbc-dev
