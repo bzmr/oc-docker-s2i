@@ -1,5 +1,8 @@
 FROM python:3.8.3-buster
 
+COPY * /app
+COPY requirements.txt /app/requirements.txt
+
 # UPDATE APT-GET
 RUN apt-get update
 
@@ -11,8 +14,7 @@ ADD odbcinst.ini /etc/odbcinst.ini
 
 # UPGRADE pip3
 RUN pip3 install --upgrade pip
-ADD requirements.txt /etc/requirements.txt
-Run pip install --upgrade -r /etc/requirements.txt
+RUN pip install --upgrade -r /app/requirements.txt
 
 # DEPENDECES FOR DOWNLOAD ODBC DRIVER
 RUN apt-get install apt-transport-https 
@@ -27,4 +29,4 @@ RUN ACCEPT_EULA=Y apt-get install msodbcsql17 --assume-yes
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile 
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
 
-CMD ["python", "app.py", "8080"]
+CMD ["python", "/app/app.py", "8080"]
